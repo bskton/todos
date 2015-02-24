@@ -1,0 +1,27 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Списки</h1>
+    </div>
+
+    {% if lists %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Список</th>
+            </tr>
+        </thead>
+        {% for list in lists %}
+            <tr>
+                <td><a href="{{ path('edit_list', {'id': list.id}) }}">{{ list.name }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <div class="jumbotron">
+            У вас нет ни одного списка. Добавьте <a href="{{ path('new_list') }}">новый список</a>.
+        </div>
+    {% endif %}
+
+{% endblock %}

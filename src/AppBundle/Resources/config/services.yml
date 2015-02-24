@@ -1,0 +1,9 @@
+services:
+    app.form.type.task:
+        class: AppBundle\Form\Type\TaskType
+        tags:
+            - { name: form.type, alias: task }
+    app.form.type.taskList:
+        class: AppBundle\Form\Type\TaskListType
+        tags:
+            - { name: form.type, alias: taskList }

@@ -1,0 +1,11 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{ app.request.attributes.get('_route') == 'new_list' ? 
+                'Новый список' : 
+                'Редактирование списка' }}</h1>
+    </div>
+
+    {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{% endblock %}

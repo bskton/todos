@@ -1,0 +1,3 @@
+<li {{ app.request.attributes.get('_route') == route ? 'class="active"' : '' }}>
+    <a href="{{ path(route) }}">{{ title }}</a>
+</li>

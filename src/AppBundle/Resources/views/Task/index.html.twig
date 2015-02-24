@@ -1,0 +1,53 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Задания</h1>
+    </div>
+
+    {% if tasks %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Задание</th>
+                <th>Список</th>
+                <th>Завершено</th>
+            </tr>
+        </thead>
+        {% for task in tasks %}
+            <tr>
+                <td><a href="{{ path('edit_task', {'id': task.id}) }}">{{ task.task }}</a></td>
+                <td>{{ task.list ? task.list.name : '' }}</td>
+                <td><input data-id="{{ task.id }}" 
+                        type="checkbox" 
+                        name="completed" 
+                        {{ task.completed ? 'checked' : '' }} 
+                        class="completed">
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <div class="jumbotron">
+            У вас нет ни одного задания. Добавьте <a href="{{ path('new_task') }}">новое задание</a>.
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(function() {
+    $('.completed').change(function() {
+        $.ajax({
+            type: 'POST',
+            url: '/task/complete/' + $(this).data('id'),
+            data: { completed: this.checked },
+            context: this
+        }).done(function() {
+            $(this).parent().parent().remove();
+        });
+    });
+});
+</script>
+{% endblock %}
